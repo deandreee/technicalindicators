@@ -14,7 +14,7 @@ var fs = require('fs');
 async function doBuild() {
   try {
     let bundle = await rollup({
-      entry: 'index.js',
+      input: 'index.js',
       plugins: [
         replace({
           'process.env.NODE_ENV': JSON.stringify( 'production' )
