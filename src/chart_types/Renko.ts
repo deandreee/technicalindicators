@@ -10,6 +10,7 @@ export class RenkoInput extends IndicatorInput {
     public period?: number;
     public brickSize?: number;
     public useATR?: boolean;
+    public atrBrickMultiplier?: number;
     public low?: number[];
     public open?: number[];
     public volume?: number[];
@@ -31,6 +32,10 @@ class Renko extends Indicator {
       if (useATR) {
        const atrResult = atr((Object as any).assign({}, input));
        brickSize = atrResult[atrResult.length - 1];
+
+       if (input.atrBrickMultiplier) {
+         brickSize *= input.atrBrickMultiplier;
+       }
       }
       this.result = new CandleList();
       if (brickSize === 0) {

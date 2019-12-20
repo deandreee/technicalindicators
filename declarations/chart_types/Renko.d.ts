@@ -7,6 +7,7 @@ export declare class RenkoInput extends IndicatorInput {
     period?: number;
     brickSize?: number;
     useATR?: boolean;
+    atrBrickMultiplier?: number;
     low?: number[];
     open?: number[];
     volume?: number[];
