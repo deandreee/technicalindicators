@@ -538,7 +538,7 @@ class MACD extends Indicator {
                     index++;
                     continue;
                 }
-                if (fast && slow) {
+                if (fast && slow) { // Just for typescript to be happy
                     MACD = fast - slow;
                     signal = signalMAProducer.nextValue(MACD);
                 }
@@ -2406,6 +2406,9 @@ class Renko extends Indicator {
         if (useATR) {
             const atrResult = atr(Object.assign({}, input));
             brickSize = atrResult[atrResult.length - 1];
+            if (input.atrBrickMultiplier) {
+                brickSize *= input.atrBrickMultiplier;
+            }
         }
         this.result = new CandleList();
         if (brickSize === 0) {
@@ -4031,6 +4034,7 @@ function getAvailableIndicators () {
   AvailableIndicators.push('awesomeoscillator');
   AvailableIndicators.push('forceindex');
   AvailableIndicators.push('vwap');
+  AvailableIndicators.push('volumeprofile');
   AvailableIndicators.push('renko');
   AvailableIndicators.push('heikinashi');
 
@@ -4039,6 +4043,10 @@ function getAvailableIndicators () {
 
   AvailableIndicators.push('averagegain');
   AvailableIndicators.push('averageloss');
+  AvailableIndicators.push('highest');
+  AvailableIndicators.push('lowest');
+  AvailableIndicators.push('sum');
+  AvailableIndicators.push('FixedSizeLinkedList');
   AvailableIndicators.push('sd');
   AvailableIndicators.push('bullish');
   AvailableIndicators.push('bearish');
@@ -4065,6 +4073,18 @@ function getAvailableIndicators () {
   AvailableIndicators.push('bearishspinningtop');
   AvailableIndicators.push('threeblackcrows');
   AvailableIndicators.push('threewhitesoldiers');
+  AvailableIndicators.push('bullishhammerstick');
+  AvailableIndicators.push('bearishhammerstick');
+  AvailableIndicators.push('bullishinvertedhammerstick');
+  AvailableIndicators.push('bearishinvertedhammerstick');
+  AvailableIndicators.push('hammerpattern');
+  AvailableIndicators.push('hammerpatternunconfirmed');
+  AvailableIndicators.push('hangingman');
+  AvailableIndicators.push('hangingmanunconfirmed');
+  AvailableIndicators.push('shootingstar');
+  AvailableIndicators.push('shootingstarunconfirmed');
+  AvailableIndicators.push('tweezertop');
+  AvailableIndicators.push('tweezerbottom');
 
   AvailableIndicators.push('predictPattern');
   AvailableIndicators.push('hasDoubleBottom');
@@ -4073,6 +4093,10 @@ function getAvailableIndicators () {
   AvailableIndicators.push('hasInverseHeadAndShoulder');
   AvailableIndicators.push('isTrendingUp');
   AvailableIndicators.push('isTrendingDown');
+  AvailableIndicators.push('ichimokucloud');
+  
+  AvailableIndicators.push('keltnerchannels');
+  AvailableIndicators.push('chandelierexit');
   return AvailableIndicators;
 }
 

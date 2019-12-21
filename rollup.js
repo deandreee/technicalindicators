@@ -14,7 +14,7 @@ var fs = require('fs');
 async function doBuild() {
   try {
     let bundle = await rollup({
-      input: 'index.js',
+      entry: 'index.js',
       plugins: [
         replace({
           'process.env.NODE_ENV': JSON.stringify( 'production' )
@@ -89,40 +89,6 @@ async function doBuild() {
         },
       };
     }
-
-    let customBundle = await rollup({
-      entry: 'custom.js',
-      plugins: [
-        definitionGenerator(),
-        replace({
-          'process.env.NODE_ENV': JSON.stringify( 'production' )
-        }),
-        builtins(),
-        resolve({
-          jsnext: true,
-          main: true,
-          browser: true
-        }),
-        commonjs({
-        }),
-        minify({
-          comments : false
-        })
-      ],
-      external: ["@babel/polyfill"]
-    });
-
-    await customBundle.write({
-      'banner': '/* APP */',
-      dest: 'dist/custom.js',
-      format: 'iife',
-      moduleName: 'window',
-      globals : {
-        "@babel/polyfill" : 'window'
-      }
-    })
-
-    fs.writeFileSync('dist/custom.d.ts', declarations);
 
     let bundleES6 = await rollup({
       entry: 'index.js',
